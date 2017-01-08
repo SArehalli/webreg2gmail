@@ -17,7 +17,7 @@ DASHBOARD_URL = "https://act.ucsd.edu/myTritonlink20/display.htm"
 
 TIMEZONE = "America/Los_Angeles"
 WEEKDAYS = ["MO", "TU", "WE", "TH", "FR"] 
-FIRST_DAY = (2016, 9, 26)
+FIRST_DAY = (2017, 1, 9)
 
 def get_credentials():
     
@@ -46,8 +46,10 @@ def get_datetime(day, hour, minute):
 
 def parse_datetime(time):
 
+    print(time)
     hour, minute, ampm = re.match(r"(\d+):(\d+)(a|p)m", time).groups()
-    hour, minute = int(hour), int(minute)
+    hour, minute = int(hour) % 12, int(minute)
+    print(hour, minute)
     return hour + 12 if ampm == "p" else hour, minute
 
 def parse_datetimes(day, time):
